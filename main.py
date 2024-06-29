@@ -12,7 +12,7 @@ import dotenv
 
 def main():
     """create and arun a bot"""
-    dotenv.load_dotenv
+    dotenv.load_dotenv()
     token = os.environ["TOKEN"]
     sound_requests = queue.Queue()
     loop = asyncio.get_event_loop()
