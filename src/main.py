@@ -14,7 +14,7 @@ import rest_api
 
 def main():
     """create and arun a bot"""
-    dotenv.load_dotenv
+    dotenv.load_dotenv()
     token = os.environ["TOKEN"]
     sound_root = os.environ["SOUNDS"]
     port = os.environ["PORT"]
