@@ -1,0 +1,15 @@
+name: Post annoying messages on discord
+
+on:
+  push
+
+jobs:
+  notify:
+    name: Notify Discord users
+    runs-on: ubuntu-latest
+    steps:
+      - name: send notification
+        uses: sarisia/actions-status-discord@v1
+        if: always()
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
