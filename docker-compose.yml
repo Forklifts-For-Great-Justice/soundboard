@@ -1,0 +1,31 @@
+version: "3.9"  # Or your preferred version
+
+services:
+  # launch sounboard itself
+  soundboard:
+    container_name: soundboard
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 5000:5000
+    volumes:
+      - ./sounds:/sounds
+    # restart: always # Uncomment to ensure the container restarts if it crashes
+    environment: # Uncomment to set environment variables
+      - SOUNDS=/sounds
+      - TOKEN=CHANGEME
+      - PORT=5000
+  # launch webdav server for file management
+  webdav:
+    container_name: webdav
+    image: ugeek/webdav:amd64
+    ports:
+      - 80:80
+    volumes:
+      - ./sounds:/media
+    environment:
+      - USERNAME=webdav
+      - PASSWORD=webdav
+      - UID=1000
+      - GID=1000

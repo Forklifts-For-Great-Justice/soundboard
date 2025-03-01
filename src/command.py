@@ -1,22 +1,26 @@
 """ Class to handle loading new commands for the bot """
+
 import re
 import asyncio
 
-class Command(): #pylint: disable=too-few-public-methods
-    """ Class to handle loading new commands for the bot """
+import loguru
 
-    def __init__(self, name: str, handler, regexp=r''):
+
+class Command:  # pylint: disable=too-few-public-methods
+    """Class to handle loading new commands for the bot"""
+
+    def __init__(self, name: str, handler, regexp=r""):
         self.name = name
         self.regexp = re.compile(regexp) if regexp else None
         if not asyncio.iscoroutine(handler):
-            print("All commands must be coroutines")
+            loguru.info("All commands must be coroutines")
             handler = asyncio.coroutine(handler)
         self.handler = handler
-        self.help = handler.__doc__ or ''
+        self.help = handler.__doc__ or ""
 
     async def call(self, message: str):
-        """ check if message matches regex and call"""
-        data = ' '.join(message.content.split()[2:])
+        """check if message matches regex and call"""
+        data = " ".join(message.content.split()[2:])
         if self.regexp:
             match = self.regexp.match(data)
             if not match:

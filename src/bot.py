@@ -1,10 +1,16 @@
 """ Generic Bot class to handle bot things """
+
 from datetime import datetime
+
 import discord
+import loguru
+
 import command
 
-class Bot():
-    """ Bot class, for bots """
+
+class Bot:
+    """Bot class, for bots"""
+
     def __init__(self, token, loop, prefix):
         self.client = discord.Client(loop=loop, intents=discord.Intents.default())
         self.commands = dict()
@@ -21,16 +27,16 @@ class Bot():
         self._add_commands()
 
     async def on_message(self, message):
-        """ message handling function"""
+        """message handling function"""
 
     async def on_ready(self):
-        """ on ready handler"""
+        """on ready handler"""
 
     async def on_member_update(self, old, new):
-        """ member update handler"""
+        """member update handler"""
 
     async def start(self):
-        """ login in to discord and wait for events"""
+        """login in to discord and wait for events"""
         await self.client.login(self.token)
         await self.client.connect()
 
@@ -40,7 +46,7 @@ class Bot():
         """
         cmd = command.Command(*args, **kwargs)
         self.commands[cmd.name] = cmd
-        print("adding command: {}".format(cmd.name))
+        loguru.info("adding command: {}".format(cmd.name))
 
     def _add_commands(self):
         """
